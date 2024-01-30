@@ -1,0 +1,571 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger",
+    "version": "1.0.0",
+    "description": "",
+    "contact": {
+      "email": "abdibaker1@gmail.com",
+      "name": "",
+      "url": "http://127.0.0.1:8080"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080",
+      "description": "Local server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Access token is missing or invalid"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+,
+"/users": {
+  "get": {
+    "tags": ["User"],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+  "id": {
+    "type": "integer"
+  },
+  "username": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "password": {
+    "type": "string"
+  },
+  "role": {
+    "type": "string"
+  }
+}
+              }
+            }
+          }
+        }
+      },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" }
+    }
+  },
+  "post": {
+    "tags": ["User"],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+  "username": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "password": {
+    "type": "string"
+  },
+  "role": {
+    "type": "string"
+  }
+}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "201": { "description": "successful created" },
+      "400": { "description": "Validation failed" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" },
+      "409": { "description": "Data already exists" },
+      "404": { "description": "Foreign key Not found" },
+      "500": { "description": "Internal server error" }
+    }
+  }
+},
+"/users/{id}": {
+  "get": {
+    "tags": ["User"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {"type":"integer"}
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+  "id": {
+    "type": "integer"
+  },
+  "username": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "password": {
+    "type": "string"
+  },
+  "role": {
+    "type": "string"
+  }
+}
+            }
+          }
+        }
+      },
+      "400": { "description": "Invalid primaryKey supplied" },
+      "404": { "description": "Not found" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" }
+    }
+  },
+  "put": {
+    "tags": ["User"],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {"type":"integer"}
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+  "username": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "password": {
+    "type": "string"
+  },
+  "role": {
+    "type": "string"
+  }
+}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "204": { "description": "successful updated" },
+      "400": { "description": "Validation failed" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" },
+      "500": { "description": "Internal server error" }
+    }
+  },
+  "delete": {
+    "tags": ["User"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {"type":"integer"}
+      }
+    ],
+    "responses": {
+      "204": { "description": "successful operation" },
+      "404": { "description": "School not found" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" }
+    }
+  }
+}
+,
+"/members": {
+  "get": {
+    "tags": ["Member"],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+  "id": {
+    "type": "integer"
+  },
+  "companyName": {
+    "type": "string"
+  },
+  "companyEmail": {
+    "type": "string"
+  },
+  "companyPhone": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "region": {
+    "type": "string"
+  },
+  "district": {
+    "type": "string"
+  },
+  "ownerName": {
+    "type": "string"
+  },
+  "ownerEmail": {
+    "type": "string"
+  },
+  "ownerPhone": {
+    "type": "string"
+  },
+  "representativeName": {
+    "type": "string"
+  },
+  "gender": {
+    "type": "string"
+  },
+  "position": {
+    "type": "string"
+  },
+  "representativeEmail": {
+    "type": "string"
+  },
+  "representativePhone": {
+    "type": "string"
+  },
+  "businessType": {
+    "type": "string"
+  },
+  "businessCluster": {
+    "type": "string"
+  },
+  "businessActivity": {
+    "type": "string"
+  },
+  "registrationCertificate": {
+    "type": "string"
+  },
+  "representativeCV": {
+    "type": "string"
+  }
+}
+              }
+            }
+          }
+        }
+      },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" }
+    }
+  },
+  "post": {
+    "tags": ["Member"],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+  "companyName": {
+    "type": "string"
+  },
+  "companyEmail": {
+    "type": "string"
+  },
+  "companyPhone": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "region": {
+    "type": "string"
+  },
+  "district": {
+    "type": "string"
+  },
+  "ownerName": {
+    "type": "string"
+  },
+  "ownerEmail": {
+    "type": "string"
+  },
+  "ownerPhone": {
+    "type": "string"
+  },
+  "representativeName": {
+    "type": "string"
+  },
+  "gender": {
+    "type": "string"
+  },
+  "position": {
+    "type": "string"
+  },
+  "representativeEmail": {
+    "type": "string"
+  },
+  "representativePhone": {
+    "type": "string"
+  },
+  "businessType": {
+    "type": "string"
+  },
+  "businessCluster": {
+    "type": "string"
+  },
+  "businessActivity": {
+    "type": "string"
+  },
+  "registrationCertificate": {
+    "type": "string"
+  },
+  "representativeCV": {
+    "type": "string"
+  }
+}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "201": { "description": "successful created" },
+      "400": { "description": "Validation failed" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" },
+      "409": { "description": "Data already exists" },
+      "404": { "description": "Foreign key Not found" },
+      "500": { "description": "Internal server error" }
+    }
+  }
+},
+"/members/{id}": {
+  "get": {
+    "tags": ["Member"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {"type":"integer"}
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+  "id": {
+    "type": "integer"
+  },
+  "companyName": {
+    "type": "string"
+  },
+  "companyEmail": {
+    "type": "string"
+  },
+  "companyPhone": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "region": {
+    "type": "string"
+  },
+  "district": {
+    "type": "string"
+  },
+  "ownerName": {
+    "type": "string"
+  },
+  "ownerEmail": {
+    "type": "string"
+  },
+  "ownerPhone": {
+    "type": "string"
+  },
+  "representativeName": {
+    "type": "string"
+  },
+  "gender": {
+    "type": "string"
+  },
+  "position": {
+    "type": "string"
+  },
+  "representativeEmail": {
+    "type": "string"
+  },
+  "representativePhone": {
+    "type": "string"
+  },
+  "businessType": {
+    "type": "string"
+  },
+  "businessCluster": {
+    "type": "string"
+  },
+  "businessActivity": {
+    "type": "string"
+  },
+  "registrationCertificate": {
+    "type": "string"
+  },
+  "representativeCV": {
+    "type": "string"
+  }
+}
+            }
+          }
+        }
+      },
+      "400": { "description": "Invalid primaryKey supplied" },
+      "404": { "description": "Not found" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" }
+    }
+  },
+  "put": {
+    "tags": ["Member"],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {"type":"integer"}
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+  "companyName": {
+    "type": "string"
+  },
+  "companyEmail": {
+    "type": "string"
+  },
+  "companyPhone": {
+    "type": "string"
+  },
+  "email": {
+    "type": "string"
+  },
+  "region": {
+    "type": "string"
+  },
+  "district": {
+    "type": "string"
+  },
+  "ownerName": {
+    "type": "string"
+  },
+  "ownerEmail": {
+    "type": "string"
+  },
+  "ownerPhone": {
+    "type": "string"
+  },
+  "representativeName": {
+    "type": "string"
+  },
+  "gender": {
+    "type": "string"
+  },
+  "position": {
+    "type": "string"
+  },
+  "representativeEmail": {
+    "type": "string"
+  },
+  "representativePhone": {
+    "type": "string"
+  },
+  "businessType": {
+    "type": "string"
+  },
+  "businessCluster": {
+    "type": "string"
+  },
+  "businessActivity": {
+    "type": "string"
+  },
+  "registrationCertificate": {
+    "type": "string"
+  },
+  "representativeCV": {
+    "type": "string"
+  }
+}
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "204": { "description": "successful updated" },
+      "400": { "description": "Validation failed" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" },
+      "500": { "description": "Internal server error" }
+    }
+  },
+  "delete": {
+    "tags": ["Member"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {"type":"integer"}
+      }
+    ],
+    "responses": {
+      "204": { "description": "successful operation" },
+      "404": { "description": "School not found" },
+      "401": { "$ref": "#/components/responses/UnauthorizedError" }
+    }
+  }
+}
+  ],
+  "paths": {}
+}
